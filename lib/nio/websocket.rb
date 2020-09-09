@@ -199,9 +199,6 @@ module NIO
         store = OpenSSL::X509::Store.new
         store.set_default_paths
         ctx = OpenSSL::SSL::SSLContext.new
-        { cert_store: store, verify_mode: OpenSSL::SSL::VERIFY_PEER }.merge(options[:ssl_context] || {}).each do |k, v|
-          ctx.send "#{k}=", v if ctx.respond_to? k
-        end
         OpenSSL::SSL::SSLSocket.new(io, ctx)
       end
     end
